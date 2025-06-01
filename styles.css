@@ -847,6 +847,27 @@ footer {
   transform: translateX(5px);
 }
 
+/* Style tombol login */
+.login-btn {
+  padding: 8px 15px;
+  border-radius: 4px;
+  background-color: #4CAF50; /* Warna hijau */
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.login-btn:hover {
+  background-color: #45a049; /* Warna hijau lebih gelap saat hover */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .login-btn {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .wisata-header {
