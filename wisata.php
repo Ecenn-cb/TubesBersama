@@ -1,3 +1,12 @@
+<?php
+session_start();
+require_once 'koneksiDb.php';
+
+// Check if user is logged in
+$logged_in = isset($_SESSION['logged_in']);
+$username = $logged_in ? $_SESSION['username'] : '';
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -20,11 +29,25 @@
 
   <nav id="main-nav">
     <div class="nav-container">
-      <a href="index.html"><i class="fas fa-home"></i> Home</a>
-      <a href="sejarah.html"><i class="fas fa-landmark"></i> Sejarah</a>
-      <a href="makanan.html"><i class="fas fa-utensils"></i> Kuliner</a>
-      <a href="wisata.html" class="active"><i class="fas fa-mountain"></i> Wisata</a>
-      <a href="login.html" class="login-btn"><i class="fas fa-user"></i> Login</a>
+      <a href="index.php"><i class="fas fa-home"></i> Home</a>
+      <a href="sejarah.php"><i class="fas fa-landmark"></i> Sejarah</a>
+      <a href="kuliner.php"><i class="fas fa-utensils"></i> Kuliner</a>
+      <a href="wisata.php" class="active"><i class="fas fa-mountain"></i> Wisata</a>
+
+      <?php if($logged_in): ?>
+        <div class="user-dropdown">
+          <button class="user-btn">
+            <i class="fas fa-user-circle"></i> <?php echo htmlspecialchars($username); ?>
+          </button>
+          <div class="dropdown-content">
+            <a href="profile.php"><i class="fas fa-user"></i> Profil</a>
+            <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+          </div>
+        </div>
+      <?php else: ?>
+        <a href="login.php" class="login-btn"><i class="fas fa-user"></i> Login</a>
+      <?php endif; ?>
+    </div>
     </div>
   </nav>
 
@@ -176,39 +199,6 @@
       </div>
     </section>
   </main>
-
-  <footer>
-    <div class="footer-container">
-      <div class="footer-section">
-        <h4>Wisata Cianjur</h4>
-        <p>Panduan lengkap destinasi wisata alam dan budaya di Kabupaten Cianjur, Jawa Barat.</p>
-      </div>
-      
-      <div class="footer-section">
-        <h4>Navigasi</h4>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="sejarah.html">Sejarah</a></li>
-          <li><a href="makanan.html">Kuliner</a></li>
-          <li><a href="wisata.html">Wisata</a></li>
-        </ul>
-      </div>
-      
-      <div class="footer-section">
-        <h4>Kontak</h4>
-        <p><i class="fas fa-phone"></i> (0263) 234567</p>
-        <p><i class="fas fa-envelope"></i> wisata@cianjur.id</p>
-        <div class="social-links">
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-facebook"></i></a>
-          <a href="#"><i class="fab fa-youtube"></i></a>
-        </div>
-      </div>
-    </div>
-    
-    <div class="copyright">
-      <p>&copy; 2025 Informasi Cianjur. All rights reserved.</p>
-    </div>
-  </footer>
+    <?php include 'footer.php'; ?>
 </body>
 </html>

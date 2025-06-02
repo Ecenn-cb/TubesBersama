@@ -1,3 +1,12 @@
+<?php
+session_start();
+require_once 'koneksiDb.php';
+
+// Check if user is logged in
+$logged_in = isset($_SESSION['logged_in']);
+$username = $logged_in ? $_SESSION['username'] : '';
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -19,11 +28,24 @@
 
   <nav id="main-nav">
     <div class="nav-container">
-      <a href="index.html"><i class="fas fa-home"></i> Home</a>
-      <a href="sejarah.html" class="active"><i class="fas fa-landmark"></i> Sejarah</a>
-      <a href="makanan.html"><i class="fas fa-utensils"></i> Kuliner</a>
-      <a href="wisata.html"><i class="fas fa-mountain"></i> Wisata</a>
-      <a href="login.html" class="login-btn"><i class="fas fa-user"></i> Login</a>
+      <a href="index.php"><i class="fas fa-home"></i> Home</a>
+      <a href="sejarah.php" class="active"><i class="fas fa-landmark"></i> Sejarah</a>
+      <a href="kuliner.php"><i class="fas fa-utensils"></i> Kuliner</a>
+      <a href="wisata.php"><i class="fas fa-mountain"></i> Wisata</a>
+      
+      <?php if($logged_in): ?>
+        <div class="user-dropdown">
+          <button class="user-btn">
+            <i class="fas fa-user-circle"></i> <?php echo htmlspecialchars($username); ?>
+          </button>
+          <div class="dropdown-content">
+            <a href="profile.php"><i class="fas fa-user"></i> Profil</a>
+            <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+          </div>
+        </div>
+      <?php else: ?>
+        <a href="login.php" class="login-btn"><i class="fas fa-user"></i> Login</a>
+      <?php endif; ?>
     </div>
   </nav>
 
@@ -82,38 +104,6 @@
             </div>
           </div>
         </div>
-        
-        <div class="historical-figures">
-          <h3>Tokoh Penting Sejarah Cianjur</h3>
-          <div class="figures-grid">
-            <div class="figure-card">
-              <div class="figure-image">
-                <img src="gambar/R.A-Wiradatanu-I.jpg" alt="Raden Jayasasana">
-              </div>
-              <h4>Raden Jayasasana</h4>
-              <p class="figure-title">Aria Wira Tanu I</p>
-              <p>Pendiri Cianjur (1677-1680)</p>
-            </div>
-            
-            <div class="figure-card">
-              <div class="figure-image">
-                <img src="https://via.placeholder.com/300x400?text=Wira+Tanu+II" alt="Wira Tanu II">
-              </div>
-              <h4>Wira Tanu II</h4>
-              <p class="figure-title">Pemindah Ibu Kota</p>
-              <p>Memindahkan pusat pemerintahan ke Cianjur (1680)</p>
-            </div>
-            
-            <div class="figure-card">
-              <div class="figure-image">
-                <img src="https://via.placeholder.com/300x400?text=Aria+Wangsa+Goparana" alt="Aria Wangsa Goparana">
-              </div>
-              <h4>Aria Wangsa Goparana</h4>
-              <p class="figure-title">Penyebar Islam</p>
-              <p>Pendiri Sagara Herang (Subang)</p>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
     
@@ -140,36 +130,6 @@
     </section>
   </main>
 
-  <footer>
-    <div class="footer-container">
-      <div class="footer-section">
-        <h4>Informasi Sejarah Cianjur</h4>
-        <p>Website informasi lengkap tentang sejarah perkembangan Kabupaten Cianjur dari masa ke masa.</p>
-      </div>
-      
-      <div class="footer-section">
-        <h4>Navigasi</h4>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="sejarah.html">Sejarah</a></li>
-          <li><a href="makanan.html">Kuliner</a></li>
-          <li><a href="wisata.html">Wisata</a></li>
-        </ul>
-      </div>
-      
-      <div class="footer-section">
-        <h4>Referensi</h4>
-        <ul>
-          <li><a href="#">Arsip Nasional</a></li>
-          <li><a href="#">Museum Cianjur</a></li>
-          <li><a href="#">Buku Sejarah Cianjur</a></li>
-        </ul>
-      </div>
-    </div>
-    
-    <div class="copyright">
-      <p>&copy; 2025 Informasi Cianjur. All rights reserved.</p>
-    </div>
-  </footer>
+  <?php include 'footer.php'; ?>
 </body>
 </html>
